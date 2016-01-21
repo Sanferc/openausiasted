@@ -1,0 +1,135 @@
+<!--
+Copyright (c) 2015 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
+
+openAUSIAS: The stunning micro-library that helps you to develop easily
+            AJAX web applications by using Java and jQuery
+openAUSIAS is distributed under the MIT License (MIT)
+Sources at https://github.com/rafaelaznar/
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+-->
+<div class="panel-heading" style="font-family:Oswald , serif;"  ng-include="'js/system/header.html'"></div>
+<div class="panel-body">
+    <form name="outerForm" class="form-horizontal" ng-show="result == null">
+
+        <div id="id-group" class="form-group">
+            <label class="col-sm-2 control-label" for="id">Identificador:</label>
+            <div class="control col-sm-3">
+                <input ng-model="obj.id" type="text" id="id" class="form-control" name="id" size="15" placeholder="id" disabled="disabled">
+            </div>
+        </div>
+
+        <!-- Nombre del equipo -->
+        <div id="nombre-group" class="form-group" 
+             ng-class="{'has-error': (outerForm.nombre.$error.required || outerForm.nombre.$error.minlength) && !outerForm.nombre.$pristine}">
+            <label class="col-sm-2 control-label" for="nombre">Nombre:</label>
+            <div class="control col-sm-8">
+                <input ng-model="obj.nombre"
+                       type="text"
+                       id="nombre"
+                       class="form-control"
+                       name="nombre"
+                       size="15"
+                       placeholder="nombre"
+                       minlength="10"
+                       maxlength="200"
+                       required>
+                <span class="help-block" ng-show="!outerForm.nombre.$pristine && outerForm.nombre.$error.required">El campo nombre es obligatorio</span>
+
+            </div>
+
+        </div>
+
+        <!-- Estadio del equipo -->
+        <div id="estadio-group" class="form-group"
+             ng-class="{'has-error': (outerForm.hits.$error.required || outerForm.hits.$error.pattern || outerForm.hits.$error.lowerThan) && !outerForm.hits.$pristine}">
+            <label class="col-sm-2 control-label" for="estadio">Estadio:</label>
+            <div class="control col-sm-3">
+                <input 
+                    ng-model="obj.estadio" 
+                    type="text" 
+                    id="estadio" 
+                    class="form-control" 
+                    name="estadio" 
+                    size="15" 
+                    placeholder="estadio"
+                    
+                    
+                    required>
+            </div>
+        </div>
+
+
+        <!-- Fundacion del equipo -->
+        <div id="fundacion-group" class="form-group">
+            <label class="col-sm-2 control-label" for="fundacion">Fundacion:</label>
+            <div class="control col-sm-3">
+                <div class="input-group date" id="fundacion_group">
+                    <input type="text" class="form-control" starting-day="1" uib-datepicker-popup="dd/MM/yyyy" ng-model="obj.fundacion" is-open="popup2.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions1" date-disabled="disabled(date, mode)" ng-required="true" close-text="Cerrar" alt-input-formats="altInputFormats" placeholder="Fundacion" />
+                    <span class="input-group-addon" ng-click="open2()">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Sede del equipo -->
+        <div id="sede-group" class="form-group">
+            <label class="col-sm-2 control-label" for="sede">Sede:</label>
+            <div class="control col-sm-3">
+                <input 
+                    ng-model="obj.sede" 
+                    type="text" 
+                    id="sede" 
+                    class="form-control" 
+                    name="sede" 
+                    size="15" 
+                    placeholder="sede"
+                    
+                        
+                    required>
+            </div>
+        </div>
+
+<!-- Botones de operaciones -->
+        <div class="control-group text-right">
+            <div class="controls">
+                <a class="btn btn-primary" ng-click="save()">Guardar</a>
+                <a class="btn btn-default" ng-click="plist()">Ir al listado de equipos</a>
+                <a class="btn btn-default" ng-click="close()">Cerrar</a>
+            </div>
+        </div>
+    </form>
+    
+<!-- Validaciones -->
+    <div ng-show="result != null">
+        <div class="alert alert-success" ng-show="result.status == 200">
+            <h2>Se ha modificado el registro</h2>
+            <a ng-href="#/equipo/view/{{id}}">Ver el registro modificado</a>
+        </div>
+        <div class="alert alert-danger" ng-show="result.status != 200">
+            <h2>Error al modificar el documento: no se ha modificado el documento</h2>
+            <h3>Código: {{result.status}}</h3>
+            <h3>Mensaje: {{result.message}}</h3>
+        </div>
+    </div>
+</div>
+<div class="panel-footer" style="font-family: Questrial, serif;" ng-include="'js/system/footer.html'"></div>
