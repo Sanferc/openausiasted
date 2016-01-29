@@ -128,7 +128,7 @@ public class EquipoBean implements GenericBean {
 
     @Override
     public String getValues() {
-         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");    
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");    
         String strColumns = "";
         strColumns += id + ",";
         strColumns += EncodingUtilHelper.quotate(nombre) + ",";

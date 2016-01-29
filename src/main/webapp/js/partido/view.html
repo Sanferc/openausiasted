@@ -38,12 +38,13 @@ THE SOFTWARE.
                 </thead>
                 <tbody>
                     <tr><td>id</td><td>{{bean.id}}</td></tr>       
-                    <tr><td>descripcion</td><td>{{bean.descripcion}}</td></tr> 
+                    <tr><td>fecha</td><td>{{bean.fecha}}</td></tr> 
+                    <tr><td>Jornada</td><td><a href="#/jornada/view/{{bean.obj_jornada.id}}">{{bean.obj_jornada.descripcion}}</a></td></tr> 
+                    <tr><td>Equipo Local</td><td><a href="#/equipo/view/{{bean.obj_equipoLocal.id}}">{{bean.obj_equipoLocal.nombre}}</a></td></tr> 
+                    <tr><td>Equipo Visitante</td><td><a href="#/equipo/view/{{bean.obj_equipoVisitante.id}}">{{bean.obj_equipoVisitante.nombre}}</a></td></tr> 
                     <tr><td>golesLocal</td><td>{{bean.golesLocal}}</td></tr> 
                     <tr><td>golesVisitante</td><td>{{bean.golesVisitante}}</td></tr> 
-                    <tr><td>id_jornada</td><td>{{bean.id_jornada}}</td></tr> 
-                    <tr><td>id_equipoLocal</td><td>{{bean.id_equipoLocal}}</td></tr> 
-                    <tr><td>id_equipoVisitante</td><td>{{bean.id_equipoVisitante}}</td></tr> 
+                    
                 </tbody>
             </table>  
             <div class="text-right" > 

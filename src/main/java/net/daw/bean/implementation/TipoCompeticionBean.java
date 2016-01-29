@@ -31,6 +31,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import net.daw.bean.publicinterface.GenericBean;
+import net.daw.helper.statics.EncodingUtilHelper;
 
 public class TipoCompeticionBean implements GenericBean{
 
@@ -87,7 +88,7 @@ public class TipoCompeticionBean implements GenericBean{
     public String getValues() {
         String strColumns = "";
         strColumns += id + ",";
-        strColumns += descripcion;
+        strColumns += EncodingUtilHelper.quotate(descripcion);
         return strColumns;
     }
 

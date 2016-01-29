@@ -28,9 +28,12 @@ package net.daw.bean.implementation;
 
 import net.daw.bean.publicinterface.GenericBean;
 import com.google.gson.annotations.Expose;
+import static java.lang.String.format;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import net.daw.dao.implementation.EquipoDao;
 import net.daw.dao.implementation.JornadaDao;
 import net.daw.helper.statics.EncodingUtilHelper;
@@ -40,7 +43,7 @@ public class PartidoBean implements GenericBean {
     @Expose
     private Integer id;
     @Expose
-    private String descripcion = "";
+    private Date fecha;
     @Expose
     private Integer golesLocal;
     @Expose
@@ -74,30 +77,14 @@ public class PartidoBean implements GenericBean {
         this.id = id;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public Date getFecha() {
+        return fecha;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
-
-    public Integer getGolesLocal() {
-        return golesLocal;
-    }
-
-    public void setGolesLocal(Integer golesLocal) {
-        this.golesLocal = golesLocal;
-    }
-
-    public Integer getGolesVisitante() {
-        return golesVisitante;
-    }
-
-    public void setGolesVisitante(Integer golesVisitante) {
-        this.golesVisitante = golesVisitante;
-    }
-
+    
     public Integer getId_jornada() {
         return id_jornada;
     }
@@ -130,6 +117,22 @@ public class PartidoBean implements GenericBean {
         this.obj_equipoLocal = obj_equipoLocal;
     }
 
+    public Integer getGolesLocal() {
+        return golesLocal;
+    }
+
+    public void setGolesLocal(Integer golesLocal) {
+        this.golesLocal = golesLocal;
+    }
+
+    public Integer getGolesVisitante() {
+        return golesVisitante;
+    }
+
+    public void setGolesVisitante(Integer golesVisitante) {
+        this.golesVisitante = golesVisitante;
+    }
+
     public Integer getId_equipoVisitante() {
         return id_equipoVisitante;
     }
@@ -145,42 +148,57 @@ public class PartidoBean implements GenericBean {
     public void setObj_equipoVisitante(EquipoBean obj_equipoVisitante) {
         this.obj_equipoVisitante = obj_equipoVisitante;
     }
+    
+    public String toJson(Boolean expand) {
+        String strJson = "{";
+        strJson += "id:" + id + ",";
+        strJson += "fecha:" + fecha + ",";
+        strJson += "id_jornada:" + id_jornada + ",";
+        strJson += "id_equipoLocal:" + id_equipoLocal + ",";
+        strJson += "golesLocal:" + golesLocal + ",";
+        strJson += "id_equipoVisitante:" + id_equipoVisitante + ",";
+        strJson += "golesVisitante:" + golesVisitante + ",";
+        strJson += "}";
+        return strJson;
+    }
 
     @Override
     public String getColumns() {
         String strColumns = "";
         strColumns += "id,";
-        strColumns += "descripcion,";
-        strColumns += "golesLocal,";
-        strColumns += "golesVisitante,";
+        strColumns += "fecha,";
         strColumns += "id_jornada,";
         strColumns += "id_equipoLocal,";
+        strColumns += "golesLocal,";
+        strColumns += "golesVisitante,";
         strColumns += "id_equipoVisitante";
         return strColumns;
     }
 
     @Override
     public String getValues() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");  
         String strColumns = "";
         strColumns += id + ",";
-        strColumns += descripcion + ",";
-        strColumns += golesLocal + ",";
-        strColumns += golesVisitante + ",";
+        strColumns += EncodingUtilHelper.quotate(format.format(fecha)) + ",";
         strColumns += id_jornada + ",";
         strColumns += id_equipoLocal + ",";
+        strColumns += golesLocal + ",";
+        strColumns += golesVisitante + ",";
         strColumns += id_equipoVisitante;
         return strColumns;
     }
 
     @Override
     public String toPairs() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd"); 
         String strPairs = "";
         strPairs += "id=" + id + ",";
-        strPairs += "descripcion=" + EncodingUtilHelper.quotate(descripcion) + ",";
-        strPairs += "golesLocal=" + golesLocal + ",";
-        strPairs += "golesVisitante=" + golesVisitante + ",";
+        strPairs += EncodingUtilHelper.quotate(format.format(fecha)) + ",";
         strPairs += "id_jornada=" + id_jornada + ",";
         strPairs += "id_equipoLocal=" + id_equipoLocal + ",";
+        strPairs += "golesLocal=" + golesLocal + ",";
+        strPairs += "golesVisitante=" + golesVisitante + ",";
         strPairs += "id_equipoVisitante=" + id_equipoVisitante;
         return strPairs;
     }
@@ -188,10 +206,8 @@ public class PartidoBean implements GenericBean {
     @Override
     public PartidoBean fill(ResultSet oResultSet, Connection pooledConnection, Integer expand) throws SQLException, Exception {
         this.setId(oResultSet.getInt("id"));
-        this.setDescripcion(oResultSet.getString("descripcion"));
-        this.setGolesLocal(oResultSet.getInt("golesLocal"));
-        this.setGolesVisitante(oResultSet.getInt("golesVisitante"));
-
+        this.setFecha(oResultSet.getDate("fecha"));
+        
         if (expand > 0) {
             JornadaBean oJornadaBean = new JornadaBean();
             JornadaDao oJornadaDao = new JornadaDao(pooledConnection);
@@ -201,7 +217,7 @@ public class PartidoBean implements GenericBean {
         } else {
             this.setId_jornada(oResultSet.getInt("id_jornada"));
         }
-
+        
         if (expand > 0) {
             EquipoBean oEquipoBean = new EquipoBean();
             EquipoDao oEquipoDao = new EquipoDao(pooledConnection);
@@ -211,6 +227,9 @@ public class PartidoBean implements GenericBean {
         } else {
             this.setId_equipoLocal(oResultSet.getInt("id_equipoLocal"));
         }
+        
+        this.setGolesLocal(oResultSet.getInt("golesLocal"));
+        this.setGolesVisitante(oResultSet.getInt("golesVisitante"));
 
         if (expand > 0) {
             EquipoBean oEquipoBean = new EquipoBean();

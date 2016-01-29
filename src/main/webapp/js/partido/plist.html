@@ -100,11 +100,11 @@ THE SOFTWARE.
                                 <p></p>
                                 <p>Campos visibles:</p>
                                 <input type="checkbox" ng-model="visibles.id" ng-checked="visibles.id">Ident.
-                                <input type="checkbox" ng-model="visibles.descripcion" ng-checked="visibles.nombre" >Descripcion
-                                <input type="checkbox" ng-model="visibles.golesLocal" ng-checked="visibles.nombre" >Goles Local
-                                <input type="checkbox" ng-model="visibles.golesVisitante" ng-checked="visibles.nombre" >Goles Visitante
+                                <input type="checkbox" ng-model="visibles.fecha" ng-checked="visibles.nombre" >Fecha
                                 <input type="checkbox" ng-model="visibles.id_jornada" ng-checked="visibles.id_jornada">Jornada
                                 <input type="checkbox" ng-model="visibles.id_equipoLocal" ng-checked="visibles.id_equipoLocal">Local
+                                <input type="checkbox" ng-model="visibles.golesLocal" ng-checked="visibles.nombre" >Goles Local
+                                <input type="checkbox" ng-model="visibles.golesVisitante" ng-checked="visibles.nombre" >Goles Visitante
                                 <input type="checkbox" ng-model="visibles.id_equipoVisitante" ng-checked="visibles.id_equipoVisitante">Visitante                                                                                                                         
                                 <p></p>
                             </div>
@@ -118,11 +118,11 @@ THE SOFTWARE.
                                     <select id="selectFilter" class="form-control" name="filter" style="width: 160px" ng-model="filter">
                                         <option style="display:none">selecciona un campo</option>
                                         <option value="id">Identificador</option>
-                                        <option value="descripcion">Descripcion</option>
-                                        <option value="golesLocal">Goles Local</option>
-                                        <option value="golesVisitante">Goles Visitante</option>     
+                                        <option value="fecha">Fecha</option>
                                         <option value="id_jornada">Jornada</option>
                                         <option value="id_equipoLocal">Local</option>
+                                        <option value="golesLocal">Goles Local</option>
+                                        <option value="golesVisitante">Goles Visitante</option>     
                                         <option value="id_equipoVisitante">Visitante</option>  
                                     </select>
                                     <select id="selectFilteroperator" class="form-control" name="filteroperator" width="80" style="width: 200px" ng-model="filteroperator">
@@ -178,23 +178,12 @@ THE SOFTWARE.
                         <a ng-show="visibles.id" href="#/{{ob}}/plist/{{numpage}}/{{rpp}}?order=id&ordervalue=desc{{paramsWithoutOrder}}"><i class="glyphicon glyphicon-arrow-down"></i></a>
 
                     </th>
-                    <th ng-show="visibles.descripcion"  class="text-center">
-                        Descripcion<br/>
-                        <a ng-show="visibles.descripcion" href="#/{{ob}}/plist/{{numpage}}/{{rpp}}?order=id&ordervalue=asc{{paramsWithoutOrder}}"><i class="glyphicon glyphicon-arrow-up"></i></a>
-                        <a ng-show="visibles.descripcion" href="#/{{ob}}/plist/{{numpage}}/{{rpp}}?order=id&ordervalue=desc{{paramsWithoutOrder}}"><i class="glyphicon glyphicon-arrow-down"></i></a>
+                    <th ng-show="visibles.fecha"  class="text-center">
+                        Fecha<br/>
+                        <a ng-show="visibles.fecha" href="#/{{ob}}/plist/{{numpage}}/{{rpp}}?order=id&ordervalue=asc{{paramsWithoutOrder}}"><i class="glyphicon glyphicon-arrow-up"></i></a>
+                        <a ng-show="visibles.fecha" href="#/{{ob}}/plist/{{numpage}}/{{rpp}}?order=id&ordervalue=desc{{paramsWithoutOrder}}"><i class="glyphicon glyphicon-arrow-down"></i></a>
                     </th>
-                    <th ng-show="visibles.golesLocal"  class="text-center">
-                        Goles Local<br/>
-                        <a ng-show="visibles.golesLocal" href="#/{{ob}}/plist/{{numpage}}/{{rpp}}?order=id&ordervalue=asc{{paramsWithoutOrder}}"><i class="glyphicon glyphicon-arrow-up"></i></a>
-                        <a ng-show="visibles.golesLocal" href="#/{{ob}}/plist/{{numpage}}/{{rpp}}?order=id&ordervalue=desc{{paramsWithoutOrder}}"><i class="glyphicon glyphicon-arrow-down"></i></a>
-
-                    </th>
-                    <th ng-show="visibles.golesVisitante" class="text-center">
-                        Goles Visitante<br/>
-                        <a ng-show="visibles.golesVisitante" href="#/{{ob}}/plist/{{numpage}}/{{rpp}}?order=id&ordervalue=asc{{paramsWithoutOrder}}"><i class="glyphicon glyphicon-arrow-up"></i></a>
-                        <a ng-show="visibles.golesVisitante" href="#/{{ob}}/plist/{{numpage}}/{{rpp}}?order=id&ordervalue=desc{{paramsWithoutOrder}}"><i class="glyphicon glyphicon-arrow-down"></i></a>
-                    </th>
-                    <th ng-show="visibles.id_jornada" class="text-center">
+                    <th ng-show="visibles.id_jornada"  class="text-center">
                         Jornada<br/>
                         <a ng-show="visibles.id_jornada" href="#/{{ob}}/plist/{{numpage}}/{{rpp}}?order=id&ordervalue=asc{{paramsWithoutOrder}}"><i class="glyphicon glyphicon-arrow-up"></i></a>
                         <a ng-show="visibles.id_jornada" href="#/{{ob}}/plist/{{numpage}}/{{rpp}}?order=id&ordervalue=desc{{paramsWithoutOrder}}"><i class="glyphicon glyphicon-arrow-down"></i></a>
@@ -204,6 +193,17 @@ THE SOFTWARE.
                         <a ng-show="visibles.id_equipoLocal" href="#/{{ob}}/plist/{{numpage}}/{{rpp}}?order=id&ordervalue=asc{{paramsWithoutOrder}}"><i class="glyphicon glyphicon-arrow-up"></i></a>
                         <a ng-show="visibles.id_equipoLocal" href="#/{{ob}}/plist/{{numpage}}/{{rpp}}?order=id&ordervalue=desc{{paramsWithoutOrder}}"><i class="glyphicon glyphicon-arrow-down"></i></a>
                     </th>
+                    <th ng-show="visibles.golesLocal" class="text-center">
+                        GolesLocal<br/>
+                        <a ng-show="visibles.golesLocal" href="#/{{ob}}/plist/{{numpage}}/{{rpp}}?order=id&ordervalue=asc{{paramsWithoutOrder}}"><i class="glyphicon glyphicon-arrow-up"></i></a>
+                        <a ng-show="visibles.golesLocal" href="#/{{ob}}/plist/{{numpage}}/{{rpp}}?order=id&ordervalue=desc{{paramsWithoutOrder}}"><i class="glyphicon glyphicon-arrow-down"></i></a>
+                    </th>
+                    <th ng-show="visibles.golesVisitante" class="text-center">
+                        Goles Visitante<br/>
+                        <a ng-show="visibles.golesVisitante" href="#/{{ob}}/plist/{{numpage}}/{{rpp}}?order=id&ordervalue=asc{{paramsWithoutOrder}}"><i class="glyphicon glyphicon-arrow-up"></i></a>
+                        <a ng-show="visibles.golesVisitante" href="#/{{ob}}/plist/{{numpage}}/{{rpp}}?order=id&ordervalue=desc{{paramsWithoutOrder}}"><i class="glyphicon glyphicon-arrow-down"></i></a>
+                    </th>
+                    
                     <th ng-show="visibles.id_equipoVisitante" class="text-center">
                         Equipo Visitante<br/>
                         <a ng-show="visibles.id_equipoVisitante" href="#/{{ob}}/plist/{{numpage}}/{{rpp}}?order=id&ordervalue=asc{{paramsWithoutOrder}}"><i class="glyphicon glyphicon-arrow-up"></i></a>
@@ -215,21 +215,23 @@ THE SOFTWARE.
             <tbody>
                 <tr ng-repeat="obj in page| filter:searchText">
                     <td ng-show="visibles.id"  class="text-right">{{obj.id}}</td>
-                    <td ng-show="visibles.descripcion">{{obj.descripcion}}</td>
-                    <td ng-show="visibles.golesLocal">{{obj.golesLocal}}</td>
-                    <td ng-show="visibles.golesVisitante">{{obj.golesVisitante}}</td>
+                    <td ng-show="visibles.fecha">{{obj.fecha}}</td>
                     <td ng-show="visibles.id_jornada"><a href="#/jornada/view/{{obj.obj_jornada.id}}">{{obj.obj_jornada.descripcion}}</a></td>
                     <td ng-show="visibles.id_equipoLocal"><a href="#/equipo/view/{{obj.obj_equipoLocal.id}}">{{obj.obj_equipoLocal.nombre}}</a></td>
+                    <td ng-show="visibles.golesLocal">{{obj.golesLocal}}</td>
+                    <td ng-show="visibles.golesVisitante">{{obj.golesVisitante}}</td>
                     <td ng-show="visibles.id_equipoVisitante"><a href="#/equipo/view/{{obj.obj_equipoVisitante.id}}">{{obj.obj_equipoVisitante.nombre}}</a></td>
+                    
+                    
                     <td>
                         <div class="btn-group" role="group">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 Acciones<span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a class="btn btn-default action02" href="#/competicion/view/{{obj.id}}"><i class="fa fa-eye fa-2g"></i> Ver</a></li>
-                                <li><a class="btn btn-default action03" href="#/competicion/edit/{{obj.id}}"><i class="fa fa-pencil fa-2g"></i> Editar</a></li>
-                                <li><a class="btn btn-default action04" href="#/competicion/remove/{{obj.id}}"><i class="fa fa-times fa-2g"></i> Borrar</a></li>
+                                <li><a class="btn btn-default action02" href="#/partido/view/{{obj.id}}"><i class="fa fa-eye fa-2g"></i> Ver</a></li>
+                                <li><a class="btn btn-default action03" href="#/partido/edit/{{obj.id}}"><i class="fa fa-pencil fa-2g"></i> Editar</a></li>
+                                <li><a class="btn btn-default action04" href="#/partido/remove/{{obj.id}}"><i class="fa fa-times fa-2g"></i> Borrar</a></li>
                             </ul>
                         </div>
                     </td>

@@ -36,11 +36,11 @@ moduloPartido.controller('PartidoPListController', ['$scope', '$routeParams', 's
 
         $scope.visibles = {};
         $scope.visibles.id = true;
-        $scope.visibles.descripcion = true;
-        $scope.visibles.golesLocal = true;
-        $scope.visibles.golesVisitante = true;
+        $scope.visibles.fecha = true;
         $scope.visibles.id_jornada = true;
         $scope.visibles.id_equipoLocal = true;
+        $scope.visibles.golesLocal = true;
+        $scope.visibles.golesVisitante = true;
         $scope.visibles.id_equipoVisitante = true;
        
 
